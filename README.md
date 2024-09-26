@@ -42,6 +42,13 @@ When I first received my living wage from my parents, I had no idea how to manag
 
  I believe I am not the only one who has faced this dilemma when first living on my own and eagerly looking for a tool to keep track of personal financial transactions. Thus, the idea of building PBS came into my mind to offer simple and easy-to-follow features that allow everyone to manage complex financial data efficiently. **In my perspective, personal budgeting applies to everyone, regardless of age, profession, or other background.** Realizing that PBS could be used by individuals from all walks of life makes it a widely applicable project and greatly excites me to make a tangible difference in everyone's life by helping them achieve financial stability, meet saving goals, and obtain a clearer understanding of their spending habits.
 
+ ## User Stories
+- As a user, I want to be able to add an income entry to my income book with the exact amount, date, and source of income. 
+- As a user, I want to be able to view the list of my monthly expense inventory. 
+- As a user, I want to be able to set a monthly budget for the total expense.
+- As a user, I want to be able to delete an expense entry in my expense inventory.
+- As a user, I want to be able to calculate my monthly net balance by subtracting my total monthly income from my total monthly expenses. 
+
 
 
 

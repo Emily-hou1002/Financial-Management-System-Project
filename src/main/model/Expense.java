@@ -29,7 +29,10 @@ public class Expense {
      * called date, and a null user note.
      */
     public Expense(double money, ExpenseUsage use, LocalDate date) {
-        // stub;
+        this.money = money;
+        this.use = use;
+        this.date = date;
+        this.note = null;
     }
 
     /*
@@ -38,20 +41,20 @@ public class Expense {
      * EFFECTS: attach a user note to the given expense entry
      */
     public void attachExpenseNote(String note) {
-        // stub;
+        this.note = note;
     }
 
     // EFFECTS: return the user note attached to a specific expense
     public String checkExpenseNote() {
-        return null;
+        return note;
     }
 
     // EFFECTS: return the money spent from a specific expense
     public double getExpenseMoney() {
-        return 0.0;
+        return money;
     }
 
-    // EFFECTS: return the usage type of a specific expense
+    // EFFECTS: return the usage number of a specific expense
     public ExpenseUsage getExpenseUse() {
         return use;
     }
@@ -62,3 +65,4 @@ public class Expense {
     }
 
 }
+

@@ -18,42 +18,99 @@ public class IncomeBook {
      */
 
     public IncomeBook() {
-        //stub;
+        incomeRecord = new ArrayList<Income>();
+        totalIncome = 0.0;
     }
 
     // MODIFIES: this
-    // EFFECTS: add a new income entry into the incomebook list and increase the total income accordingly
+    // EFFECTS: add a new income entry into the incomebook list based on
+    // chronologial order
     public void addIncome(Income i) {
-        // stub;
+        incomeRecord.add(i);
+        this.totalIncome += i.getIncomeMoney();
     }
 
     // MODIFIES: this
-    // EFFECTS: remove a speific income entry from the incomebook list and decrease the total income accordingly
+    // EFFECTS: remove a speific income entry from the incomebook list
     public void removeIncome(Income i) {
-        // stub;
+        incomeRecord.remove(i);
+        this.totalIncome -= i.getIncomeMoney();
     }
 
-    // REQUIRES: the input start and end time should only represent the start/end of a month or the start/end of a year
+    // REQUIRES: the input list should not be an empty list, and the input start and
+    // end time should only represent
+    // the start/end of a month or the start/end of a year
     // EFFECTS: return the list of income entries within specific time period
     public ArrayList<Income> filterIncomeRecordByTime(ArrayList<Income> icl, LocalDate start, LocalDate end) {
-        return null;
+        ArrayList<Income> ft = new ArrayList<Income>();
+
+        for (Income i : icl) {
+            LocalDate date = i.getIncomeDate();
+
+            if (date.getYear() >= start.getYear() && date.getYear() <= end.getYear()) {
+                if (date.getMonthValue() >= start.getMonthValue() && date.getMonthValue() <= end.getMonthValue()) {
+                    if (date.getDayOfMonth() >= start.getDayOfMonth() && date.getDayOfMonth() <= end.getDayOfMonth()) {
+                        ft.add(i);
+                    }
+                }
+            }
+        }
+
+        return ft;
 
     }
 
-    // EFFECTS: return the list of income entries within specific source
+    // REQUIRES: the input arraylist should not be empty
+    // EFFECTS: return the list of income entries within specific souce
     public ArrayList<Income> filterIncomeRecordBySource(ArrayList<Income> icl, Incomesource is) {
-        return null;
+        ArrayList<Income> fs = new ArrayList<Income>();
+
+        for (Income i : icl) {
+            Incomesource source = i.getIncomeSource();
+
+            if (source == is) {
+                fs.add(i);
+            }
+        }
+
+        return fs;
     }
 
-    // REQUIRES: the input start and end time should only represent the start/end of a month or the start/end of a year
+    // REQUIRES: the input start and end time should only represent
+    // the start/end of a month or the start/end of a year
     // EFFECTS: return the amount of total income of a specific time
     public double calculateTotalIncomeByTime(ArrayList<Income> icl, LocalDate start, LocalDate end) {
-        return 0.0;
+        double tit = 0;
+
+        for (Income i : icl) {
+            LocalDate date = i.getIncomeDate();
+            double money = i.getIncomeMoney();
+
+            if (date.getYear() >= start.getYear() && date.getYear() <= end.getYear()) {
+                if (date.getMonthValue() >= start.getMonthValue() && date.getMonthValue() <= end.getMonthValue()) {
+                    if (date.getDayOfMonth() >= start.getDayOfMonth()
+                            && date.getDayOfMonth() <= end.getDayOfMonth()) {
+                        tit += money;
+                    }
+                }
+            }
+        }
+        return tit;
     }
 
     // EFFECTS: return the amount of total income of a specific source
     public double calulateTotalIncomeBySource(ArrayList<Income> icl, Incomesource is) {
-        return 0.0;
+        double tis = 0;
+
+        for (Income i : icl) {
+            Incomesource source = i.getIncomeSource();
+            double money = i.getIncomeMoney();
+
+            if (source == is) {
+                tis += money;
+            }
+        }
+        return tis;
 
     }
 
@@ -65,3 +122,4 @@ public class IncomeBook {
         return totalIncome;
     }
 }
+

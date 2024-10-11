@@ -12,45 +12,104 @@ public class ExpenseBook {
     private double totalExpense;
 
     /*
-     * EFFECTS: construct an expense book containing no expense entries and an total expense of 0
+     * EFFECTS: construct an expense book containing no expense entries
      */
     public ExpenseBook() {
-        //stub;
+        expenseRecord = new ArrayList<Expense>();
+        totalExpense = 0.0;
+
     }
 
     // MODIFIES: this
-    // EFFECTS: add an expense income entry into the expensebook list and increase the total expense accordingly
+    // EFFECTS: add an expense income entry into the expensebook list based on
+    // chronologial order
     public void addExpense(Expense e) {
-        // stub;
+        expenseRecord.add(e);
+        totalExpense += e.getExpenseMoney();
     }
 
     // MODIFIES: this
-    // EFFECTS: remove an expense income entry from the expensebook list and decrease the total expense accordingly
+    // EFFECTS: remove an expense income entry into the expensebook list
     public void removeExpense(Expense e) {
-        //stub;
+        expenseRecord.remove(e);
+        totalExpense -= e.getExpenseMoney();
     }
 
-    // REQUIRES: the input start and end time should only represent the start/end of a month or the start/end of a
+    // REQUIRES: the input list should not be an empty list, and the input start and
+    // end time should only represent the start/end of a month or the start/end of a
     // year
     // EFFECTS: return the list of expense entries within specific time period
     public ArrayList<Expense> filterExpenseRecordByTime(ArrayList<Expense> epl, LocalDate start, LocalDate end) {
-        return null;
+        ArrayList<Expense> ft = new ArrayList<Expense>();
+
+        for (Expense e : epl) {
+            LocalDate date = e.getExpenseDate();
+
+            if (date.getYear() >= start.getYear() && date.getYear() <= end.getYear()) {
+                if (date.getMonthValue() >= start.getMonthValue() && date.getMonthValue() <= end.getMonthValue()) {
+                    if (date.getDayOfMonth() >= start.getDayOfMonth() && date.getDayOfMonth() <= end.getDayOfMonth()) {
+                        ft.add(e);
+                    }
+                }
+            }
+        }
+
+        return ft;
     }
 
+    // REQUIRES: the input arraylist should not be empty
     // EFFECTS: return the list of expense entries within specific time period
     public ArrayList<Expense> filterExpenseRecordByUsage(ArrayList<Expense> epl, ExpenseUsage eu) {
-        return null;
+        ArrayList<Expense> fu = new ArrayList<Expense>();
+
+        for (Expense e : epl) {
+            ExpenseUsage usage = e.getExpenseUse();
+
+            if (usage == eu) {
+                fu.add(e);
+            }
+        }
+
+        return fu;
     }
 
-    // REQUIRES: the input start and end time should only represent the start/end of a month or the start/end of a year
+    // REQUIRES: the input start and end time should only represent the start/end of
+    // a month or the start/end of a
+    // year
     // EFFECTS: return the amount of total expense of a specific time
     public double calculateTotalExpenseByTime(ArrayList<Expense> epl, LocalDate start, LocalDate end) {
-        return 0.0;
+        double tet = 0;
+
+        for (Expense e : epl) {
+            LocalDate date = e.getExpenseDate();
+            double money = e.getExpenseMoney();
+
+            if (date.getYear() >= start.getYear() && date.getYear() <= end.getYear()) {
+                if (date.getMonthValue() >= start.getMonthValue() && date.getMonthValue() <= end.getMonthValue()) {
+                    if (date.getDayOfMonth() >= start.getDayOfMonth()
+                            && date.getDayOfMonth() <= end.getDayOfMonth()) {
+                        tet += money;
+                    }
+                }
+            }
+        }
+        return tet;
     }
 
+    // REQUIRES: the input arraylist should not be empty
     // EFFECTS: return the amount of total expense of a specific usage
     public double calulateTotalExpenseByUsage(ArrayList<Expense> epl, ExpenseUsage eu) {
-        return 0.0;
+        double tet = 0;
+
+        for (Expense e : epl) {
+            ExpenseUsage usage = e.getExpenseUse();
+            double money = e.getExpenseMoney();
+
+            if (usage == eu) {
+                tet += money;
+            }
+        }
+        return tet;
     }
 
     // EFFECTS: return the total amount of expense in the Expense Book
@@ -64,3 +123,4 @@ public class ExpenseBook {
     }
 
 }
+

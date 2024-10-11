@@ -25,7 +25,10 @@ public class Income {
      * called date, and a null user note.
      */
     public Income(double money, Incomesource source, LocalDate date) {
-        //stub;
+        this.money = money;
+        this.source = source;
+        this.date = date;
+        this.note = null;
     }
 
     /*
@@ -34,20 +37,20 @@ public class Income {
      * EFFECTS: attach a single user note to the given income entry
      */
     public void attachIncomeNote(String note) {
-       //stub;
+        this.note = note;
     }
 
     // EFFECTS: return the user note attached to a specific income
     public String checkIncomeNote() {
-        return null;
+        return note;
     }
 
     // EFFECTS: return the money earned from a specific income
     public double getIncomeMoney() {
-        return 0.0;
+        return money;
     }
 
-    // EFFECTS: return the source type of a specific income
+    // EFFECTS: return the source number of a specific income
     public Incomesource getIncomeSource() {
         return source;
     }
@@ -58,3 +61,4 @@ public class Income {
     }
 
 }
+

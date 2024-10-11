@@ -19,7 +19,7 @@ By using this system, the user can:
 
 3. **Set your Budget**
 - Set both the total expense budget and the exact budget amount for every expense category.
-- Calculate and visualize real-time spending against the set budget.
+- Calculate current spending against the set budget.
 - Create warnings when the actual spending approaches and exceeds the budget amount.
 
 4. **Set your Saving Goals**

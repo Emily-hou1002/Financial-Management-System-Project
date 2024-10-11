@@ -37,9 +37,8 @@ public class IncomeBook {
         this.totalIncome -= i.getIncomeMoney();
     }
 
-    // REQUIRES: the input list should not be an empty list, and the input start and
-    // end time should only represent
-    // the start/end of a month or the start/end of a year
+    // REQUIRES: the input start and end time should only represent the start/end of
+    // a month or the start/end of a year
     // EFFECTS: return the list of income entries within specific time period
     public ArrayList<Income> filterIncomeRecordByTime(ArrayList<Income> icl, LocalDate start, LocalDate end) {
         ArrayList<Income> ft = new ArrayList<Income>();
@@ -60,7 +59,6 @@ public class IncomeBook {
 
     }
 
-    // REQUIRES: the input arraylist should not be empty
     // EFFECTS: return the list of income entries within specific souce
     public ArrayList<Income> filterIncomeRecordBySource(ArrayList<Income> icl, Incomesource is) {
         ArrayList<Income> fs = new ArrayList<Income>();
@@ -122,4 +120,3 @@ public class IncomeBook {
         return totalIncome;
     }
 }
-

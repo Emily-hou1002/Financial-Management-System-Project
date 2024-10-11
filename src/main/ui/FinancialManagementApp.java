@@ -110,7 +110,7 @@ public class FinancialManagementApp {
 
             System.out.println("Enter the date for this income in YYYYMMDD: ");
             int d = input.nextInt();
-            LocalDate date = converttLocalDate(d);
+            LocalDate date = converttoLocalDate(d);
 
             Income i = new Income(money, is, date);
 
@@ -189,7 +189,7 @@ public class FinancialManagementApp {
 
             System.out.println("Enter the date for this expense in YYYYMMDD: ");
             int d = input.nextInt();
-            LocalDate date = converttLocalDate(d);
+            LocalDate date = converttoLocalDate(d);
 
             Expense e = new Expense(money, eu, date);
 
@@ -258,7 +258,7 @@ public class FinancialManagementApp {
     }
 
     // EFFECTS: set an annual/ monthly budget for either the total all expense usage
-    // type of a specific type of usage
+    // or a specific type of usage
     private void setBudget() {
         System.out.print("Do you want to set an annual or monthly expense budget? enter annual/monthly: ");
         String answer = input.next();
@@ -272,7 +272,8 @@ public class FinancialManagementApp {
 
     }
 
-    // EFFECTS: set annual expense budget for the user
+    // EFFECTS: set annual expense budget on either the total expense of a specific
+    // usage type
     private void setAnnualBudget() {
         System.out.print("Do you want to set for the [1] total expense or [2] a specific usage type?");
         System.out.print("Please enter the corresponding number: ");
@@ -296,7 +297,8 @@ public class FinancialManagementApp {
         }
     }
 
-    // EFFECTS: set monthly expense budget for the user
+    // EFFECTS: set monthly expense budget on either the total expense of a specific
+    // usage type
     private void setMonthlyBudget() {
         System.out.print("Do you want to set for the [1] total expense or [2] a specific usage type?");
         System.out.print("Please enter the corresponding number: ");
@@ -324,7 +326,7 @@ public class FinancialManagementApp {
     }
 
     // EFFETCS: track the progress of the total expense within a specific time
-    // period towards the set budget
+    // period towards the set budget m
     private void trackTotalBudgetByTime(LocalDate start, LocalDate end, double m) {
         ArrayList<Expense> ek = epbk.getExpenseRecord();
         double te = epbk.calculateTotalExpenseByTime(ek, start, end);
@@ -341,8 +343,8 @@ public class FinancialManagementApp {
 
     }
 
-    // EFFETCS: track the progress of a specific usage type of expense within a
-    // specific time period towards the set budget
+    // EFFETCS: track the progress of a specific usage type of expense (eu) within a
+    // specific time period towards the set budget m
     private void trackUsageBudgetByTime(LocalDate start, LocalDate end, double m, ExpenseUsage eu) {
         ArrayList<Expense> ek = epbk.getExpenseRecord();
         ArrayList<Expense> fek = epbk.filterExpenseRecordByTime(ek, start, end);
@@ -364,11 +366,11 @@ public class FinancialManagementApp {
         ArrayList<Income> ik = icbk.getIncomeRecord();
         System.out.print("Enter the start date with which the entires in the incomebook will start in YYYYMMDD: ");
         int d1 = input.nextInt();
-        LocalDate startDate = converttLocalDate(d1);
+        LocalDate startDate = converttoLocalDate(d1);
 
         System.out.print("Enter the end date with which the entires in the incomebook will end in YYYYMMDD: ");
         int d2 = input.nextInt();
-        LocalDate endDate = converttLocalDate(d2);
+        LocalDate endDate = converttoLocalDate(d2);
 
         ArrayList<Income> tib = icbk.filterIncomeRecordByTime(ik, startDate, endDate);
 
@@ -381,11 +383,11 @@ public class FinancialManagementApp {
         System.out.print(
                 "Please enter the start date with which the entires in the expensebook will start in YYYYMMDD: ");
         int d1 = input.nextInt();
-        LocalDate startDate = converttLocalDate(d1);
+        LocalDate startDate = converttoLocalDate(d1);
 
         System.out.print("Please enter the end date with which the entires in the expensebook will end in YYYYMMDD: ");
         int d2 = input.nextInt();
-        LocalDate endDate = converttLocalDate(d2);
+        LocalDate endDate = converttoLocalDate(d2);
 
         ArrayList<Expense> teb = epbk.filterExpenseRecordByTime(ek, startDate, endDate);
 
@@ -437,7 +439,7 @@ public class FinancialManagementApp {
         System.out.println("$" + balance);
     }
 
-    // EFFECTS: calculate the total monthly income amount based on specifi month
+    // EFFECTS: calculate the total monthly income amount based on specific month
     private double processIncomeDateBasedOnMonth(int month, int year) {
         ArrayList<Income> ik = icbk.getIncomeRecord();
 
@@ -512,7 +514,7 @@ public class FinancialManagementApp {
     }
 
     // EFFECTS: covert the user input date digit into LocalDate parameter
-    private LocalDate converttLocalDate(int d) {
+    private LocalDate converttoLocalDate(int d) {
         String dt = Integer.toString(d);
         String yr = dt.substring(0, 4);
         String mt = dt.substring(4, 6);

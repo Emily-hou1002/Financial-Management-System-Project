@@ -54,7 +54,7 @@ public class Expense {
         return money;
     }
 
-    // EFFECTS: return the usage number of a specific expense
+    // EFFECTS: return the usage of a specific expense
     public ExpenseUsage getExpenseUse() {
         return use;
     }

@@ -21,23 +21,23 @@ public class ExpenseBook {
     }
 
     // MODIFIES: this
-    // EFFECTS: add an expense income entry into the expensebook list based on
-    // chronologial order
+    // EFFECTS: add an expense income entry into the expensebook list and increase
+    // the total expense by a specific amount
     public void addExpense(Expense e) {
         expenseRecord.add(e);
         totalExpense += e.getExpenseMoney();
     }
 
     // MODIFIES: this
-    // EFFECTS: remove an expense income entry into the expensebook list
+    // EFFECTS: remove an expense income entry into the expensebook list and
+    // decrease the total expense by a specific amount
     public void removeExpense(Expense e) {
         expenseRecord.remove(e);
         totalExpense -= e.getExpenseMoney();
     }
 
-    // REQUIRES: the input list should not be an empty list, and the input start and
-    // end time should only represent the start/end of a month or the start/end of a
-    // year
+    // REQUIRES: the input start and end time should only represent the start/end of
+    // a month or the start/end of a year
     // EFFECTS: return the list of expense entries within specific time period
     public ArrayList<Expense> filterExpenseRecordByTime(ArrayList<Expense> epl, LocalDate start, LocalDate end) {
         ArrayList<Expense> ft = new ArrayList<Expense>();
@@ -57,7 +57,6 @@ public class ExpenseBook {
         return ft;
     }
 
-    // REQUIRES: the input arraylist should not be empty
     // EFFECTS: return the list of expense entries within specific time period
     public ArrayList<Expense> filterExpenseRecordByUsage(ArrayList<Expense> epl, ExpenseUsage eu) {
         ArrayList<Expense> fu = new ArrayList<Expense>();
@@ -74,8 +73,7 @@ public class ExpenseBook {
     }
 
     // REQUIRES: the input start and end time should only represent the start/end of
-    // a month or the start/end of a
-    // year
+    // a month or the start/end of a year
     // EFFECTS: return the amount of total expense of a specific time
     public double calculateTotalExpenseByTime(ArrayList<Expense> epl, LocalDate start, LocalDate end) {
         double tet = 0;
@@ -96,7 +94,6 @@ public class ExpenseBook {
         return tet;
     }
 
-    // REQUIRES: the input arraylist should not be empty
     // EFFECTS: return the amount of total expense of a specific usage
     public double calulateTotalExpenseByUsage(ArrayList<Expense> epl, ExpenseUsage eu) {
         double tet = 0;
@@ -123,4 +120,3 @@ public class ExpenseBook {
     }
 
 }
-

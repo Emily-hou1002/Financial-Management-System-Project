@@ -48,7 +48,8 @@ When I first received my living wage from my parents, I had no idea how to manag
 - As a user, I want to be able to set a monthly budget for the total expense.
 - As a user, I want to be able to delete an expense entry in my expense inventory.
 - As a user, I want to be able to calculate my monthly net balance by subtracting my total monthly income from my total monthly expenses. 
-
+- As a user, I want to be able to save my current IncomeBook to file (if I so choose).
+- As a user, I want to be able to load my ExpenseBook from file (if I so choose).
 
 
 

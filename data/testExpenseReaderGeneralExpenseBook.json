@@ -1,0 +1,17 @@
+{
+    "expenseRecord": [
+        {
+            "money": "30.0",
+            "source": "GROCERY",
+            "date": "20241129",
+            "note": "fruit&vegies"
+        },
+        {
+            "money": "98.3",
+            "source": "SHOPPING",
+            "date": "20240610",
+            "note": "null"
+        }
+    ],
+    "totalIncome": "128.3"
+}

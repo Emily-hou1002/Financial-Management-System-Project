@@ -1,0 +1,17 @@
+{
+    "incomeRecord": [
+        {
+            "money": "100.0",
+            "source": "REVENUE",
+            "date": "20241010",
+            "note": "part-time"
+        },
+        {
+            "money": "53.2",
+            "source": "INVESTMENT",
+            "date": "20240803",
+            "note": "null"
+        }
+    ],
+    "totalIncome": "153.2"
+}

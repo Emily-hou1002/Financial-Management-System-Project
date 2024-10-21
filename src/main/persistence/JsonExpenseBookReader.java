@@ -1,10 +1,18 @@
 package persistence;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.stream.Stream;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import model.ExpenseBook;
+import model.Expense;
+import model.Expense.ExpenseUsage;
 
 // Represents a reader that reads the expensebook from JSON data stored in file
 public class JsonExpenseBookReader {
@@ -18,30 +26,52 @@ public class JsonExpenseBookReader {
     // EFFECTS: reads expensebook from file and returns it;
     // throws IOException if an error occurs reading data from file
     public ExpenseBook read() throws IOException {
-        return null; //
+        String jsonData = readFile(source);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        return parseExpenseBook(jsonObject);
     }
 
     // EFFECTS: reads source file as string and returns it
     private String readFile(String source) throws IOException {
-        return "";
+        StringBuilder contentBuilder = new StringBuilder();
+
+        try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> contentBuilder.append(s));
+        }
+
+        return contentBuilder.toString();
     }
 
     // EFFECTS: parses ExpenseBook from JSON object and returns it
-    private ExpenseBook parseExpenseBook(JSONObject jsonObeject) {
-        return null;
+    private ExpenseBook parseExpenseBook(JSONObject jsonObject) {
+        ExpenseBook ep = new ExpenseBook();
+        addExpenses(ep, jsonObject);
+        return ep;
+
     }
 
-    // MODIFIES: ic
+    // MODIFIES: ep
     // EFFECTS: parses expenses from JSON object and adds them to ExpenseBook
     private void addExpenses(ExpenseBook ep, JSONObject jsonObject) {
-        //stub;
+        JSONArray jsonArray = jsonObject.getJSONArray("expenseRecord");
+        for (Object json : jsonArray) {
+            JSONObject nextExpense = (JSONObject) json;
+            addExpense(ep, nextExpense);
+        }
     }
 
-    // MODIFIES: ic
-    // EFFECTS: parses income from JSON object and adds it to IncomeBook
+    // MODIFIES: ep
+    // EFFECTS: parses expense from JSON object and adds it to ExpenseBook
     private void addExpense(ExpenseBook ep, JSONObject jsonObject) {
-        //stub;
+        double money = jsonObject.getDouble("money");
+        ExpenseUsage use = ExpenseUsage.valueOf(jsonObject.getString("use"));
+        String yr = (jsonObject.getString("date")).substring(0, 4);
+        String mt = (jsonObject.getString("date")).substring(4, 6);
+        String da = (jsonObject.getString("date")).substring(6, 8);
+        LocalDate date = LocalDate.of(Integer.parseInt(yr), Integer.parseInt(mt), Integer.parseInt(da));
+        Expense i = new Expense(money, use, date);
+        i.attachExpenseNote(jsonObject.getString("note"));
+        ep.addExpense(i);
     }
 
 }
-

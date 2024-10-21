@@ -1,6 +1,6 @@
 package test.persistence;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import model.Income;
 import model.IncomeBook;
@@ -46,7 +46,7 @@ public class JsonIncomeBookReaderTest extends JsonIncomeTest {
             ArrayList<Income> incomes = ic.getIncomeRecord();
             assertEquals(2, incomes.size());
             checkIncome(100.0, Incomesource.REVENUE, LocalDate.of(2024, 10, 10), "part-time", incomes.get(0));
-            checkIncome(53.2, Incomesource.INVESTMENT, LocalDate.of(2024, 8, 3), null, incomes.get(1));
+            checkIncome(53.2, Incomesource.INVESTMENT, LocalDate.of(2024, 8, 3), "null", incomes.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

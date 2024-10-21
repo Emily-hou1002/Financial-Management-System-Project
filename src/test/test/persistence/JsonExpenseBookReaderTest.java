@@ -8,14 +8,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import model.Expense;
 import model.ExpenseBook;
 import model.Expense.ExpenseUsage;
 
-
-public class JsonExpenseBookReaderTest extends JsonExpenseTest{
+public class JsonExpenseBookReaderTest extends JsonExpenseTest {
     @Test
     void testExpenseReaderNonExistentFile() {
         JsonExpenseBookReader epreader = new JsonExpenseBookReader("./data/noSuchFile.json");
@@ -48,7 +47,7 @@ public class JsonExpenseBookReaderTest extends JsonExpenseTest{
             ArrayList<Expense> expenses = ep.getExpenseRecord();
             assertEquals(2, expenses.size());
             checkExpense(30.0, ExpenseUsage.GROCERY, LocalDate.of(2024, 11, 29), "fruit&vegies", expenses.get(0));
-            checkExpense(98.3, ExpenseUsage.SHOPPING, LocalDate.of(2024, 6, 10), null, expenses.get(1));
+            checkExpense(98.3, ExpenseUsage.SHOPPING, LocalDate.of(2024, 6, 10), "null", expenses.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

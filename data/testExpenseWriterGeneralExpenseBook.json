@@ -1,0 +1,17 @@
+{
+    "expenseRecord": [
+        {
+            "money": "2000.0",
+            "use": "HOUSING",
+            "date": "20240110",
+            "note": "null"
+        },
+        {
+            "money": "55.0",
+            "use": "TRANSPORTATION",
+            "date": "20240719",
+            "note": "bus"
+        }
+    ],
+    "totalExpense": "2055.0"
+}

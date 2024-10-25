@@ -13,7 +13,7 @@ public class JsonIncomeBookWriter {
 
     // EFFETCS: construts incomebook writer to write to destination file
     public JsonIncomeBookWriter(String destination) {
-        this.destination = destination;
+        // stub;
     }
 
     // MODIEFIES: this
@@ -21,26 +21,25 @@ public class JsonIncomeBookWriter {
     // cannot
     // be opened for writing
     public void open() throws FileNotFoundException {
-        writer = new PrintWriter(new File(destination));
+       //stub;
     }
 
     // MODIEFIES: this
     // EFFECTS: writes JSON representation of incomebook to file
     public void write(IncomeBook ic) {
-        JSONObject json = ic.toJson();
-        saveToFile(json.toString(TAB));
+       //stub;
     }
 
     // MODIFIES: this
     // EFFECTS: closes writer
     public void close() {
-        writer.close();
+        // stub;
     }
 
     // MODIFIES: this
     // EFFECTS: writes string to file
     private void saveToFile(String json) {
-        writer.print(json);
+        // stub;
     }
 
 }

@@ -2,9 +2,13 @@ package model;
 
 import java.time.LocalDate;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 //Represents a single expense entry with exact amount of money spent (in $), the use 
 // of the expense, the date when the expense occurs
-public class Expense {
+public class Expense implements Writable {
 
     public enum ExpenseUsage {
         GROCERY,
@@ -64,5 +68,14 @@ public class Expense {
         return date;
     }
 
-}
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("money", money);
+        json.put("use", use);
+        json.put("date", date);
+        json.put("note", note);
+        return json;
+    }
 
+}

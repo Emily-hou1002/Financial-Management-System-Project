@@ -4,11 +4,15 @@ package model;
 // based on their source.
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import model.Income.Incomesource;
+import persistence.Writable;
 
 import java.time.LocalDate;
 
-public class IncomeBook {
+public class IncomeBook implements Writable {
     private ArrayList<Income> incomeRecord;
     private double totalIncome;
 
@@ -119,4 +123,23 @@ public class IncomeBook {
     public double getTotalIncome() {
         return totalIncome;
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("incomeRecord", incomesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns incomes in this IncomeBook as a JSON array
+    private JSONArray incomesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Income i : incomeRecord) {
+            jsonArray.put(i.toJson());
+        }
+
+        return jsonArray;
+    }
+
 }

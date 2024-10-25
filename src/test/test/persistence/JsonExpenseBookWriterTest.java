@@ -19,7 +19,7 @@ public class JsonExpenseBookWriterTest extends JsonExpenseTest {
     @Test
     void testExpenseWriterInvalidFile() {
         try {
-            ExpenseBook ep = new ExpenseBook();
+            new ExpenseBook();
             JsonExpenseBookWriter expenseWriter = new JsonExpenseBookWriter("./data/my\0illegal:fileName.json");
             expenseWriter.open();
             fail("IOException was expected");

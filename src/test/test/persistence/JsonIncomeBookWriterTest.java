@@ -19,7 +19,7 @@ public class JsonIncomeBookWriterTest extends JsonIncomeTest {
     @Test
     void testIncomeWriterInvalidFile() {
         try {
-            IncomeBook ic = new IncomeBook();
+            new IncomeBook();
             JsonIncomeBookWriter incomeWriter = new JsonIncomeBookWriter("./data/my\0illegal:fileName.json");
             incomeWriter.open();
             fail("IOException was expected");
@@ -54,12 +54,14 @@ public class JsonIncomeBookWriterTest extends JsonIncomeTest {
             Income ic2 = new Income(550, Incomesource.INVESTMENT, LocalDate.of(2024, 4, 25));
             ic2.attachIncomeNote("one-time");
             icb.addIncome(ic2);
-            JsonIncomeBookWriter incomeBookWriter = new JsonIncomeBookWriter("./data/testIncomeWriterGeneralIncomeBook.json");
+            JsonIncomeBookWriter incomeBookWriter = new JsonIncomeBookWriter(
+                    "./data/testIncomeWriterGeneralIncomeBook.json");
             incomeBookWriter.open();
             incomeBookWriter.write(icb);
             incomeBookWriter.close();
 
-            JsonIncomeBookReader incomeBookReader = new JsonIncomeBookReader("./data/testIncomeWriterGeneralIncomeBook.json");
+            JsonIncomeBookReader incomeBookReader = new JsonIncomeBookReader(
+                    "./data/testIncomeWriterGeneralIncomeBook.json");
             icb = incomeBookReader.read();
             assertEquals(2550.0, icb.getTotalIncome());
             ArrayList<Income> incomes = icb.getIncomeRecord();

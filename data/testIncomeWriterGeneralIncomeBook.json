@@ -1,17 +1,13 @@
-{
-    "incomeRecord": [
-        {
-            "money": "2000.0",
-            "source": "CASHGIFT",
-            "date": "20240910",
-            "note": "null"
-        },
-        {
-            "money": "550.0",
-            "source": "INVESTMENT",
-            "date": "20240425",
-            "note": "one-time"
-        }
-    ],
-    "totalIncome": "2550.0"
-}
+{"incomeRecord": [
+    {
+        "date": "2024-09-10",
+        "money": 2000,
+        "source": "CASHGIFT"
+    },
+    {
+        "date": "2024-04-25",
+        "note": "one-time",
+        "money": 550,
+        "source": "INVESTMENT"
+    }
+]}

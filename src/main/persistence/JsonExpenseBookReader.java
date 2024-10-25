@@ -66,12 +66,14 @@ public class JsonExpenseBookReader {
         double money = jsonObject.getDouble("money");
         ExpenseUsage use = ExpenseUsage.valueOf(jsonObject.getString("use"));
         String yr = (jsonObject.getString("date")).substring(0, 4);
-        String mt = (jsonObject.getString("date")).substring(4, 6);
-        String da = (jsonObject.getString("date")).substring(6, 8);
+        String mt = (jsonObject.getString("date")).substring(5, 7);
+        String da = (jsonObject.getString("date")).substring(8, 10);
         LocalDate date = LocalDate.of(Integer.parseInt(yr), Integer.parseInt(mt), Integer.parseInt(da));
-        Expense i = new Expense(money, use, date);
-        i.attachExpenseNote(jsonObject.getString("note"));
-        ep.addExpense(i);
+        Expense e = new Expense(money, use, date);
+        if (jsonObject.has("note")) {
+            e.attachExpenseNote(jsonObject.getString("note"));
+        }
+        ep.addExpense(e);
     }
 
 }

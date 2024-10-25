@@ -1,6 +1,7 @@
 package persistence;
 
 import java.io.*;
+import org.json.JSONObject;
 
 import model.IncomeBook;
 
@@ -16,28 +17,30 @@ public class JsonIncomeBookWriter {
     }
 
     // MODIEFIES: this
-    // EFFECTS: opens writer; throws FileNotFoundException if destination file cannot
+    // EFFECTS: opens writer; throws FileNotFoundException if destination file
+    // cannot
     // be opened for writing
-    public void open() throws FileNotFoundException{
-        // stub;
+    public void open() throws FileNotFoundException {
+        writer = new PrintWriter(new File(destination));
     }
 
     // MODIEFIES: this
     // EFFECTS: writes JSON representation of incomebook to file
     public void write(IncomeBook ic) {
-        //stub;
+        JSONObject json = ic.toJson();
+        saveToFile(json.toString(TAB));
     }
 
     // MODIFIES: this
     // EFFECTS: closes writer
     public void close() {
-        // stub;
+        writer.close();
     }
 
     // MODIFIES: this
     // EFFECTS: writes string to file
     private void saveToFile(String json) {
-        // stub; 
+        writer.print(json);
     }
 
 }

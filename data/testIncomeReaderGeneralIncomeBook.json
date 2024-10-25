@@ -3,13 +3,13 @@
         {
             "money": "100.0",
             "source": "REVENUE",
-            "date": "20241010",
+            "date": "2024-10-10",
             "note": "part-time"
         },
         {
             "money": "53.2",
             "source": "INVESTMENT",
-            "date": "20240803",
+            "date": "2024-08-03",
             "note": "null"
         }
     ],

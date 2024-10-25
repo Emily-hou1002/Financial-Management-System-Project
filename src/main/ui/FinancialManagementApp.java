@@ -4,22 +4,41 @@ import model.Expense;
 import model.ExpenseBook;
 import model.Income;
 import model.IncomeBook;
+import persistence.JsonExpenseBookReader;
+import persistence.JsonExpenseBookWriter;
+import persistence.JsonIncomeBookReader;
+import persistence.JsonIncomeBookWriter;
 import model.Expense.ExpenseUsage;
 import model.Income.Incomesource;
 
 import java.util.Scanner;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 // Financial Management application
 public class FinancialManagementApp {
+    private static final String JSON_STORE1 = "./data/IncomeBookStorage.json";
+    private static final String JSON_STORE2 = "./data/ExpenseBookStorage.json";
     private IncomeBook icbk;
     private ExpenseBook epbk;
     private Scanner input;
+    private JsonIncomeBookWriter jsonIncomeWriter;
+    private JsonIncomeBookReader jsonIncomeReader;
+    private JsonExpenseBookWriter jsonExpenseWriter;
+    private JsonExpenseBookReader jsonExpenseReader;
 
     // EFFECTS: runs the finanial management application
-    public FinancialManagementApp() {
+    public FinancialManagementApp() throws FileNotFoundException {
+        input = new Scanner(System.in);
+        jsonIncomeWriter = new JsonIncomeBookWriter(JSON_STORE1);
+        jsonIncomeReader = new JsonIncomeBookReader(JSON_STORE1);
+        jsonExpenseWriter = new JsonExpenseBookWriter(JSON_STORE2);
+        jsonExpenseReader = new JsonExpenseBookReader(JSON_STORE2);
         runFMA();
     }
 
@@ -67,9 +86,23 @@ public class FinancialManagementApp {
         } else if (command.equals("nb")) {
             calculateBalance();
         } else {
-            System.out.println("Not valid option selected! Please select again");
+            processUserSaveLoadCommand(command);
         }
 
+    }
+
+    // MODIFIES: this
+    // EFFETCS: proesses user ommand to store or load historial daat
+    private void processUserSaveLoadCommand(String command) {
+        if (command.equals("si")) {
+            saveIncomeBook();
+        } else if (command.equals("li")) {
+            loadIncomeBook();
+        } else if (command.equals("se")) {
+            saveExpenseBook();
+        } else if (command.equals("le")) {
+            loadExpenseBook();
+        }
     }
 
     // MODIFIES: this
@@ -91,6 +124,10 @@ public class FinancialManagementApp {
         System.out.println("\tb -> set your budget");
         System.out.println("\tib -> check your IncomeBook");
         System.out.println("\teb -> check your ExpenseBook");
+        System.out.println("\tsi -> save IncomeBook to file");
+        System.out.println("\tli -> load IncomeBook from file");
+        System.out.println("\tse -> save ExpenseBook to file");
+        System.out.println("\tle -> load ExpenseBook from file");
         System.out.println("\tnb -> calculate your Net Balance");
         System.out.println("\tq -> quit the app");
 
@@ -364,6 +401,8 @@ public class FinancialManagementApp {
     // EFFECTS: display the incomebook based on the time period set by the user
     private void checkIncomeBook() {
         ArrayList<Income> ik = icbk.getIncomeRecord();
+        System.out.print(
+                "Only monthly or annual IncomeBook Record is provided. Please carefully type your date entries! ");
         System.out.print("Enter the start date with which the entires in the incomebook will start in YYYYMMDD: ");
         int d1 = input.nextInt();
         LocalDate startDate = converttoLocalDate(d1);
@@ -380,6 +419,8 @@ public class FinancialManagementApp {
     // EFFECTS: display the expensebook based on the time period set by the user
     private void checkExpenseBook() {
         ArrayList<Expense> ek = epbk.getExpenseRecord();
+        System.out.print(
+                "Only monthly or annual ExpenseBook Record is provided. Please carefully type your date entries! ");
         System.out.print(
                 "Please enter the start date with which the entires in the expensebook will start in YYYYMMDD: ");
         int d1 = input.nextInt();
@@ -595,4 +636,49 @@ public class FinancialManagementApp {
         return dt;
     }
 
+    // EFFECTS: saves the incomebook to file
+    private void saveIncomeBook() {
+        try {
+            jsonIncomeWriter.open();
+            jsonIncomeWriter.write(icbk);
+            jsonIncomeWriter.close();
+            System.out.println("Saved IncomeBook to " + JSON_STORE1);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE1);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads the incomebook from file
+    private void loadIncomeBook() {
+        try {
+            icbk = jsonIncomeReader.read();
+            System.out.println("Loaded IncomeBook from " + JSON_STORE1);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE1);
+        }
+    }
+
+    // EFFECTS: saves the expensebook to file
+    private void saveExpenseBook() {
+        try {
+            jsonExpenseWriter.open();
+            jsonExpenseWriter.write(epbk);
+            jsonExpenseWriter.close();
+            System.out.println("Saved ExpensedBook to " + JSON_STORE2);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE2);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads the expensebook from file
+    private void loadExpenseBook() {
+        try {
+            epbk = jsonExpenseReader.read();
+            System.out.println("Loaded ExpenseBook from " + JSON_STORE2);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE2);
+        }
+    }
 }

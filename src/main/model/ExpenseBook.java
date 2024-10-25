@@ -5,9 +5,13 @@ import java.time.LocalDate;
 // based on their usage.
 import java.util.ArrayList;
 
-import model.Expense.ExpenseUsage;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class ExpenseBook {
+import model.Expense.ExpenseUsage;
+import persistence.Writable;
+
+public class ExpenseBook implements Writable {
     private ArrayList<Expense> expenseRecord;
     private double totalExpense;
 
@@ -117,6 +121,24 @@ public class ExpenseBook {
     // EFFECTS: return the list of expense entries within a given time period
     public ArrayList<Expense> getExpenseRecord() {
         return expenseRecord;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("expenseRecord", expensesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this ExpenseBook as a JSON array
+    private JSONArray expensesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Expense e : expenseRecord) {
+            jsonArray.put(e.toJson());
+        }
+
+        return jsonArray;
     }
 
 }

@@ -18,7 +18,7 @@ public class JsonIncomeBookReaderTest extends JsonIncomeTest {
     void testIncomeReaderNonExistentFile() {
         JsonIncomeBookReader icreader = new JsonIncomeBookReader("./data/noSuchFile.json");
         try {
-            IncomeBook ic = icreader.read();
+            icreader.read();
             fail("IOEception expected");
         } catch (IOException e) {
             // pass

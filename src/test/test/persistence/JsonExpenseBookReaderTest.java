@@ -19,7 +19,7 @@ public class JsonExpenseBookReaderTest extends JsonExpenseTest {
     void testExpenseReaderNonExistentFile() {
         JsonExpenseBookReader epreader = new JsonExpenseBookReader("./data/noSuchFile.json");
         try {
-            ExpenseBook ep = epreader.read();
+            epreader.read();
             fail("IOEception expected");
         } catch (IOException e) {
             // pass

@@ -29,7 +29,7 @@ public class JsonIncomeBookReader {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseIncomeBook(jsonObject);
-        
+
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -65,12 +65,15 @@ public class JsonIncomeBookReader {
     private void addIncome(IncomeBook ic, JSONObject jsonObject) {
         double money = jsonObject.getDouble("money");
         Incomesource source = Incomesource.valueOf(jsonObject.getString("source"));
-        String yr = (jsonObject.getString("date")).substring(0,4);
-        String mt =  (jsonObject.getString("date")).substring(4,6);
-        String da =  (jsonObject.getString("date")).substring(6,8);
+        String yr = (jsonObject.getString("date")).substring(0, 4);
+        String mt = (jsonObject.getString("date")).substring(5, 7);
+        String da = (jsonObject.getString("date")).substring(8, 10);
         LocalDate date = LocalDate.of(Integer.parseInt(yr), Integer.parseInt(mt), Integer.parseInt(da));
         Income i = new Income(money, source, date);
-        i.attachIncomeNote(jsonObject.getString("note"));
+        if (jsonObject.has("note")) {
+
+            i.attachIncomeNote(jsonObject.getString("note"));
+        }
         ic.addIncome(i);
 
     }

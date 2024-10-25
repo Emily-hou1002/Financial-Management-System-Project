@@ -2,9 +2,13 @@ package model;
 
 import java.time.LocalDate;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents a single income entry with the exact money amount (in $), its
 // soure, and the date
-public class Income {
+public class Income implements Writable {
 
     public enum Incomesource {
         REVENUE,
@@ -58,6 +62,16 @@ public class Income {
     // EFFECTS: return the date of a specific income
     public LocalDate getIncomeDate() {
         return date;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("money", money);
+        json.put("source", source);
+        json.put("date", date);
+        json.put("note", note);
+        return json;
     }
 
 }

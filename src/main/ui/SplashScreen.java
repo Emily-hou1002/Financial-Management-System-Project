@@ -11,6 +11,7 @@ import java.io.IOException;
 public class SplashScreen extends JWindow {
     private BufferedImage myPicture;
 
+    // EFFECTS: creates a splashscreen image that appear when the system is openned
     public SplashScreen() {
         try {
             myPicture = ImageIO.read(new File("src/main/Image/fms.png"));

@@ -1,5 +1,6 @@
 package ui.tabs;
 
+// Represents All the button names used in different tabs
 public enum ButtonNames {
     IncomeBook("Go to IncomeBook"),
     ExpenseBook("Go to ExpenseBook"),

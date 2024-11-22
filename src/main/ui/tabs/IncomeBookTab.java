@@ -20,6 +20,8 @@ import persistence.JsonIncomeBookReader;
 import persistence.JsonIncomeBookWriter;
 import ui.FinancialManagementApp;
 
+// Represents an incomebook Tab that allows users to add/remove income, save/load incomebook,
+// and display the incomebook within specific time frame
 public class IncomeBookTab extends Tab {
 
     private static final String INCOMEBOOK_TEXT = "What do you want to do with your IncomeBook?";
@@ -572,4 +574,3 @@ public class IncomeBookTab extends Tab {
         return icbk;
     }
 }
-

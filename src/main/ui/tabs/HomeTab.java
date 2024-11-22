@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import ui.FinancialManagementApp;
 
+// Represents a home tab that contains the gotoincomebook button and the gotoexpensebook button
 public class HomeTab extends Tab {
 
     private static final String INIT_GREETING = "Welcome To Financial Management System. What would you like to do?";
@@ -23,6 +24,7 @@ public class HomeTab extends Tab {
         placeReportButton();
     }
 
+    // MODIFIES: this
     // EFFECTS: creates greeting at top of console
     private void placeGreeting() {
         greeting = new JLabel(INIT_GREETING, JLabel.CENTER);
@@ -30,6 +32,7 @@ public class HomeTab extends Tab {
         this.add(greeting);
     }
 
+    // MODIFIES: this
     // EFFECTS: construts Income and ExpenseBook buttons that switches tab on the
     // console
     private void placeBookButtons() {
@@ -62,6 +65,7 @@ public class HomeTab extends Tab {
         this.add(buttonRow);
     }
 
+    // MODIFIES: this
     // EFFECTS: construts a button that switches to the report tab on the console
     private void placeReportButton() {
         JPanel reportBlock = new JPanel();

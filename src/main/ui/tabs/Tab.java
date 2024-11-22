@@ -9,6 +9,7 @@ import model.ExpenseBook;
 import model.IncomeBook;
 import ui.FinancialManagementApp;
 
+// Represents a general tab used to represent different books in the system
 public abstract class Tab extends JPanel {
 
     private final FinancialManagementApp controller;
@@ -16,6 +17,8 @@ public abstract class Tab extends JPanel {
     protected ExpenseBook epbk;
 
     // REQUIRES: FinancialManagementApp controller holds this tab
+    // EFFECTS: creates a general tab that set the financial management app as the
+    // controller
     public Tab(FinancialManagementApp controller) {
         this.controller = controller;
     }

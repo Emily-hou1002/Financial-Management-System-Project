@@ -20,6 +20,8 @@ import persistence.JsonExpenseBookReader;
 import persistence.JsonExpenseBookWriter;
 import ui.FinancialManagementApp;
 
+// Represents an expensebook Tab that allows users to add/remove expense, save/load expensebook,
+// and display the expensebook within specific time frame
 public class ExpenseBookTab extends Tab {
 
     private static final String EXPENSEBOOK_TEXT = "What do you want to do with your ExpenseBook?";
@@ -573,7 +575,3 @@ public class ExpenseBookTab extends Tab {
         return epbk;
     }
 }
-
-
-
-

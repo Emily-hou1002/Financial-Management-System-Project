@@ -74,5 +74,39 @@ public class Income implements Writable {
         return json;
     }
 
-}
+    // EFFECTS: override hashCode and Equals so that all expenses with the same
+    // amount, usage, and date are equal
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(money);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((source == null) ? 0 : source.hashCode());
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        return result;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Income other = (Income) obj;
+        if (Double.doubleToLongBits(money) != Double.doubleToLongBits(other.money))
+            return false;
+        if (source != other.source)
+            return false;
+        if (date == null) {
+            if (other.date != null)
+                return false;
+        } else if (!date.equals(other.date))
+            return false;
+        return true;
+    }
+
+}

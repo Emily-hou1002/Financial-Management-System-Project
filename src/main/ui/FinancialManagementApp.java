@@ -8,8 +8,14 @@ import persistence.JsonExpenseBookReader;
 import persistence.JsonExpenseBookWriter;
 import persistence.JsonIncomeBookReader;
 import persistence.JsonIncomeBookWriter;
+import ui.tabs.ExpenseBookTab;
+import ui.tabs.HomeTab;
+import ui.tabs.IncomeBookTab;
+import ui.tabs.ReportTab;
 import model.Expense.ExpenseUsage;
 import model.Income.Incomesource;
+
+import javax.swing.*;
 
 import java.util.Scanner;
 
@@ -21,9 +27,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // Financial Management application
-public class FinancialManagementApp {
+public class FinancialManagementApp extends JFrame {
     private static final String JSON_STORE1 = "./data/IncomeBookStorage.json";
     private static final String JSON_STORE2 = "./data/ExpenseBookStorage.json";
+
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
+    private JTabbedPane sidebar;
+    public static final int HOME_TAB_INDEX = 0;
+    public static final int INCOMEBOOK_TAB_INDEX = 1;
+    public static final int EXPENSEOOK_TAB_INDEX = 2;
+    public static final int REPORT_TAB_INDEX = 3;
+
     private IncomeBook icbk;
     private ExpenseBook epbk;
     private Scanner input;
@@ -34,12 +49,53 @@ public class FinancialManagementApp {
 
     // EFFECTS: runs the finanial management application
     public FinancialManagementApp() throws FileNotFoundException {
+        super("Financial Management System");
+        icbk = new IncomeBook();
+        epbk = new ExpenseBook();
+        setSize(WIDTH, HEIGHT);
+        setDefaultCloseOperation((WindowConstants.EXIT_ON_CLOSE));
+        sidebar = new JTabbedPane();
+        sidebar.setTabPlacement(JTabbedPane.LEFT);
+        try {
+            loadTabs();
+        } catch (IOException e) {
+            System.out.println("Cannot load it");
+        }
+        add(sidebar);
+        setVisible(true);
+
         input = new Scanner(System.in);
         jsonIncomeWriter = new JsonIncomeBookWriter(JSON_STORE1);
         jsonIncomeReader = new JsonIncomeBookReader(JSON_STORE1);
         jsonExpenseWriter = new JsonExpenseBookWriter(JSON_STORE2);
         jsonExpenseReader = new JsonExpenseBookReader(JSON_STORE2);
         runFMA();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds home tab, incomebook tab, expensebook tab, and report tab to
+    // this UI
+    private void loadTabs() throws IOException {
+        JPanel homeTab = new HomeTab(this);
+        JPanel incomebookTab = new IncomeBookTab(this, icbk);
+        JPanel expensebookTab = new ExpenseBookTab(this, epbk);
+        IncomeBook updatedIncomeBook = ((IncomeBookTab) incomebookTab).loadIncomeBook();
+        ExpenseBook updatedExpenseBook = ((ExpenseBookTab) expensebookTab).loadExpenseBook();
+        JPanel reportTab = new ReportTab(this, updatedIncomeBook, updatedExpenseBook);
+
+        sidebar.add(homeTab, HOME_TAB_INDEX);
+        sidebar.setTitleAt(HOME_TAB_INDEX, "Home");
+        sidebar.add(incomebookTab, INCOMEBOOK_TAB_INDEX);
+        sidebar.setTitleAt(INCOMEBOOK_TAB_INDEX, "IncomeBook");
+        sidebar.add(expensebookTab, EXPENSEOOK_TAB_INDEX);
+        sidebar.setTitleAt(EXPENSEOOK_TAB_INDEX, "ExpenseBook");
+        sidebar.add(reportTab, REPORT_TAB_INDEX);
+        sidebar.setTitleAt(REPORT_TAB_INDEX, "Report");
+    }
+
+    // EFFECTS: returns sidebar of this UI
+    public JTabbedPane getTabbedPane() {
+        return sidebar;
     }
 
     // MODIFIES: this
@@ -64,6 +120,13 @@ public class FinancialManagementApp {
         }
 
         System.out.println("Have a nice day!Bye~");
+    }
+
+    // MODIFIES: this
+    // EFFETCS: initializes the IncomeBook and ExpenseBook
+    private void init() {
+        input = new Scanner(System.in);
+        input.useDelimiter("\r?\n|\r");
     }
 
     // MODIFIES: this
@@ -103,15 +166,6 @@ public class FinancialManagementApp {
         } else if (command.equals("le")) {
             loadExpenseBook();
         }
-    }
-
-    // MODIFIES: this
-    // EFFETCS: initializes the IncomeBook and ExpenseBook
-    private void init() {
-        icbk = new IncomeBook();
-        epbk = new ExpenseBook();
-        input = new Scanner(System.in);
-        input.useDelimiter("\r?\n|\r");
     }
 
     // EFFECTS: displays menu of feature options to user
@@ -518,7 +572,7 @@ public class FinancialManagementApp {
 
     // REQUIRES: s must be one of 1, 2, 3, 4
     // EFFECTS: return the correct incomesoure based on user's choice of number
-    private Incomesource selectIncomesource(int s) {
+    public static Incomesource selectIncomesource(int s) {
         Incomesource is = Incomesource.REVENUE;
         if (s == 1) {
             is = Incomesource.REVENUE;
@@ -535,7 +589,7 @@ public class FinancialManagementApp {
 
     // REQUIRES: u must be one of 1, 2, 3, 4, 5, 6
     // EFFECTS: return the correct expense usage based on user's choice of number
-    private ExpenseUsage selectExpenseusage(int u) {
+    public static ExpenseUsage selectExpenseusage(int u) {
         ExpenseUsage eu = ExpenseUsage.GROCERY;
         if (u == 1) {
             eu = ExpenseUsage.GROCERY;
@@ -555,7 +609,7 @@ public class FinancialManagementApp {
     }
 
     // EFFECTS: covert the user input date digit into LocalDate parameter
-    private LocalDate converttoLocalDate(int d) {
+    public static LocalDate converttoLocalDate(int d) {
         String dt = Integer.toString(d);
         String yr = dt.substring(0, 4);
         String mt = dt.substring(4, 6);
@@ -681,4 +735,5 @@ public class FinancialManagementApp {
             System.out.println("Unable to read from file: " + JSON_STORE2);
         }
     }
+
 }

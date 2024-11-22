@@ -26,14 +26,6 @@ By using this system, the user can:
 - Set your saving goals by entering an amount and the relevant purpose. 
 - Track real-time progress towards your goals by taking the income and expenses into account. 
 
-5. **Visual Financial Reports**
-- Generate charts of financial reports including income, expenses, and calculated net income for a specific period.
-- Create a dashboard of graphs (i.e. line graphs, pie charts, etc) to track the changes in different financial elements and better identify one's spending habits and income distribution. 
-
-6. **Secured User Authentication**
-- Set up a private account with a name and password.
-- A secured login-in process for user info protection.
-
 ## Who Are The Users
 This Personal Budgeting System(PBS) is a helpful and user-friendly necessity open for ***all people***. Potential users can vary from investors, households, freelancers, high earners, and even those new to budgeting. *Effectively managing one's financial resources is always imperative for everyone considering their future living and personal development.* As long as you have the desire to start managing your personal finances, no matter whether you previously have or lack bookkeeping habits, PBS is always your first choice for smarter planning of the future. 
 
@@ -51,6 +43,13 @@ When I first received my living wage from my parents, I had no idea how to manag
 - As a user, I want to be able to save my current IncomeBook to file (if I so choose).
 - As a user, I want to be able to load my ExpenseBook from file (if I so choose).
 
+ # Instructions for End User
+- You can generate the required action of "adding an income/expense entry into the income/expense book" by clicking the "add income/expense" button on the corresponding tab. Follow to instruction on the page to fill in all required information and click the "add" button.
+- You can generate the first required action related to the user story "adding multiple incomes/expenses in to an incomebook/expensebook" by clicking the "remove income/expense" button on the corresponding tab. Simply fill in the information about the particular income/expense entry and click the "delete" button.
+- You can generate the second required action related to the user story "adding multiple incomes.expenses into an incomebook/expensebook" by clicking the "display incomebook/expensebook" button on the corresponding tab. It is your choice to either view the entire book or a subset of the book based on specific time or source/usage requirement. 
+- You can locate my visual component by opening my system and a splash screen with a welcome image will show up immediately.
+- You can save the state of my application by clicking the "save incomebook/expensebook" button on the corresponding tab. Once it is finished, a pop-up dialogue box will occur as a notification.
+- You can reload the state of my application by clicking the "load incomebook/expensebook" button on the corresponding tab. Once it is finished, a pop-up dialogue will occur as a notification. 
 
 
 

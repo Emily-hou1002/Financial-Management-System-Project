@@ -1,1 +1,6 @@
-{"expenseRecord": []}
+{"expenseRecord": [{
+    "date": "2024-07-10",
+    "note": "Fruit",
+    "money": 100,
+    "use": "GROCERY"
+}]}

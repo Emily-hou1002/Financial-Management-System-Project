@@ -573,4 +573,9 @@ public class IncomeBookTab extends Tab {
     public IncomeBook getIncomeBook() {
         return icbk;
     }
+
+    // EFFECTS: set a new incomebook of this tab
+    public void setNewIncomeBook() {
+        this.icbk = new IncomeBook();
+    }
 }

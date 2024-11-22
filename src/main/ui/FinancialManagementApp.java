@@ -82,6 +82,8 @@ public class FinancialManagementApp extends JFrame {
         IncomeBook updatedIncomeBook = ((IncomeBookTab) incomebookTab).loadIncomeBook();
         ExpenseBook updatedExpenseBook = ((ExpenseBookTab) expensebookTab).loadExpenseBook();
         JPanel reportTab = new ReportTab(this, updatedIncomeBook, updatedExpenseBook);
+        ((IncomeBookTab) incomebookTab).setNewIncomeBook();
+        ((ExpenseBookTab) expensebookTab).setNewExpenseBook();
 
         sidebar.add(homeTab, HOME_TAB_INDEX);
         sidebar.setTitleAt(HOME_TAB_INDEX, "Home");

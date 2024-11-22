@@ -574,4 +574,9 @@ public class ExpenseBookTab extends Tab {
     public ExpenseBook getExpenseBook() {
         return epbk;
     }
+
+    // EFFECTS: set a new expensebook of this tab
+    public void setNewExpenseBook() {
+        this.epbk = new ExpenseBook();
+    }
 }

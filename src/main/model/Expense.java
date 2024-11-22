@@ -94,22 +94,26 @@ public class Expense implements Writable {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
-        if (getClass() != obj.getClass())
-            return false;
+        }
         Expense other = (Expense) obj;
-        if (Double.doubleToLongBits(money) != Double.doubleToLongBits(other.money))
+        if (Double.doubleToLongBits(money) != Double.doubleToLongBits(other.money)) {
             return false;
-        if (use != other.use)
+        }
+        if (use != other.use) {
             return false;
+        }
         if (date == null) {
-            if (other.date != null)
+            if (other.date != null) {
                 return false;
-        } else if (!date.equals(other.date))
+            }
+        } else if (!date.equals(other.date)) {
             return false;
+        }
         return true;
     }
 

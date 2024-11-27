@@ -32,6 +32,7 @@ public class IncomeBook implements Writable {
     public void addIncome(Income i) {
         incomeRecord.add(i);
         this.totalIncome += i.getIncomeMoney();
+        EventLog.getInstance().logEvent(new Event("New Income Added!"));
     }
 
     // MODIFIES: this
@@ -39,6 +40,7 @@ public class IncomeBook implements Writable {
     public void removeIncome(Income i) {
         incomeRecord.remove(i);
         this.totalIncome -= i.getIncomeMoney();
+        EventLog.getInstance().logEvent(new Event("Income Removed!"));
     }
 
     // REQUIRES: the input start and end time should only represent the start/end of
@@ -50,15 +52,15 @@ public class IncomeBook implements Writable {
         for (Income i : icl) {
             LocalDate date = i.getIncomeDate();
 
-            if (date.getYear() >= start.getYear() && date.getYear() <= end.getYear()) {
-                if (date.getMonthValue() >= start.getMonthValue() && date.getMonthValue() <= end.getMonthValue()) {
-                    if (date.getDayOfMonth() >= start.getDayOfMonth() && date.getDayOfMonth() <= end.getDayOfMonth()) {
-                        ft.add(i);
-                    }
-                }
+            if ((date.isEqual(start) || date.isAfter((start)))
+                    && (date.isEqual(end) || date.isBefore(end))) {
+                ft.add(i);
             }
         }
 
+        EventLog.getInstance()
+                .logEvent(new Event(
+                        "IncomeBook Filtered and Displayed from " + start.toString() + " to " + end.toString()));
         return ft;
 
     }
@@ -74,6 +76,8 @@ public class IncomeBook implements Writable {
                 fs.add(i);
             }
         }
+
+        EventLog.getInstance().logEvent(new Event("IncomeBook Filtered and Displayed with Source " + is.toString()));
 
         return fs;
     }
@@ -97,6 +101,10 @@ public class IncomeBook implements Writable {
                 }
             }
         }
+
+        EventLog.getInstance()
+                .logEvent(new Event("Total Income Calculated from " + start.toString() + " to " + end.toString()));
+
         return tit;
     }
 
@@ -112,6 +120,9 @@ public class IncomeBook implements Writable {
                 tis += money;
             }
         }
+
+        EventLog.getInstance().logEvent(new Event("Total Income Calculated of Source " + is.toString()));
+
         return tis;
 
     }

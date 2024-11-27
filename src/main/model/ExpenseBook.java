@@ -30,6 +30,7 @@ public class ExpenseBook implements Writable {
     public void addExpense(Expense e) {
         expenseRecord.add(e);
         totalExpense += e.getExpenseMoney();
+        EventLog.getInstance().logEvent(new Event("New Expense Added!"));
     }
 
     // MODIFIES: this
@@ -38,6 +39,7 @@ public class ExpenseBook implements Writable {
     public void removeExpense(Expense e) {
         expenseRecord.remove(e);
         totalExpense -= e.getExpenseMoney();
+        EventLog.getInstance().logEvent(new Event("Expense Removed!"));
     }
 
     // REQUIRES: the input start and end time should only represent the start/end of
@@ -49,14 +51,14 @@ public class ExpenseBook implements Writable {
         for (Expense e : epl) {
             LocalDate date = e.getExpenseDate();
 
-            if (date.getYear() >= start.getYear() && date.getYear() <= end.getYear()) {
-                if (date.getMonthValue() >= start.getMonthValue() && date.getMonthValue() <= end.getMonthValue()) {
-                    if (date.getDayOfMonth() >= start.getDayOfMonth() && date.getDayOfMonth() <= end.getDayOfMonth()) {
-                        ft.add(e);
-                    }
-                }
+            if ((date.isEqual(start) || date.isAfter((start)))
+                    && (date.isEqual(end) || date.isBefore(end))) {
+                ft.add(e);
             }
         }
+        EventLog.getInstance()
+                .logEvent(new Event(
+                        "ExpenseBook Filtered and Displayed from " + start.toString() + " to " + end.toString()));
 
         return ft;
     }
@@ -72,6 +74,8 @@ public class ExpenseBook implements Writable {
                 fu.add(e);
             }
         }
+
+        EventLog.getInstance().logEvent(new Event("ExpenseBook Filtered and Displayed with Usage " + eu.toString()));
 
         return fu;
     }
@@ -95,6 +99,10 @@ public class ExpenseBook implements Writable {
                 }
             }
         }
+
+        EventLog.getInstance()
+                .logEvent(new Event("Total Expense Calculated from " + start.toString() + " to " + end.toString()));
+
         return tet;
     }
 
@@ -110,6 +118,9 @@ public class ExpenseBook implements Writable {
                 tet += money;
             }
         }
+
+        EventLog.getInstance().logEvent(new Event("Total Expense Calculated of Usage " + eu.toString()));
+
         return tet;
     }
 

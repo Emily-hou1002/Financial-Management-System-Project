@@ -546,26 +546,16 @@ public class IncomeBookTab extends Tab {
     // EFFECTS: filters the incomebook based on user's instrution of start date, end
     // date, and source for display purpose
     private List<Income> filterIncomes(LocalDate start, LocalDate end, String source) {
-        List<Income> originaList = icbk.getIncomeRecord();
+        ArrayList<Income> originaList = icbk.getIncomeRecord();
         List<Income> filteredIncomes = new ArrayList<>();
-
-        for (Income i : originaList) {
-            LocalDate entryDate = i.getIncomeDate();
-            if (Integer.valueOf(source) == 0) {
-                if ((entryDate.isEqual(start) || entryDate.isAfter((start)))
-                        && (entryDate.isEqual(end) || entryDate.isBefore(end))) {
-                    filteredIncomes.add(i);
-                }
-            } else {
-                Incomesource is = FinancialManagementApp.selectIncomesource(Integer.valueOf(source));
-                if (i.getIncomeSource() == is) {
-                    if ((entryDate.isEqual(start) || entryDate.isAfter((start)))
-                            && (entryDate.isEqual(end) || entryDate.isBefore(end))) {
-                        filteredIncomes.add(i);
-                    }
-                }
-            }
+        if (Integer.valueOf(source) == 0) {
+            filteredIncomes = icbk.filterIncomeRecordByTime(originaList, start, end);
+        } else {
+            Incomesource is = FinancialManagementApp.selectIncomesource(Integer.valueOf(source));
+            ArrayList<Income> filteredSource = icbk.filterIncomeRecordBySource(originaList, is);
+            filteredIncomes = icbk.filterIncomeRecordByTime(filteredSource, start, end);
         }
+
         return filteredIncomes;
     }
 

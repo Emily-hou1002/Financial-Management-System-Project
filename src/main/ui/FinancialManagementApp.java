@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Expense;
 import model.ExpenseBook;
 import model.Income;
@@ -16,6 +18,7 @@ import model.Expense.ExpenseUsage;
 import model.Income.Incomesource;
 
 import javax.swing.*;
+import java.awt.event.*;
 
 import java.util.Scanner;
 
@@ -54,6 +57,14 @@ public class FinancialManagementApp extends JFrame {
         epbk = new ExpenseBook();
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation((WindowConstants.EXIT_ON_CLOSE));
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                handleWindowClose();
+            }
+        });
+
         sidebar = new JTabbedPane();
         sidebar.setTabPlacement(JTabbedPane.LEFT);
         try {
@@ -65,10 +76,7 @@ public class FinancialManagementApp extends JFrame {
         setVisible(true);
 
         input = new Scanner(System.in);
-        jsonIncomeWriter = new JsonIncomeBookWriter(JSON_STORE1);
-        jsonIncomeReader = new JsonIncomeBookReader(JSON_STORE1);
-        jsonExpenseWriter = new JsonExpenseBookWriter(JSON_STORE2);
-        jsonExpenseReader = new JsonExpenseBookReader(JSON_STORE2);
+        initializeWriterAndReader();
         runFMA();
     }
 
@@ -95,9 +103,27 @@ public class FinancialManagementApp extends JFrame {
         sidebar.setTitleAt(REPORT_TAB_INDEX, "Report");
     }
 
+    // EFFECTS: initialize the json reader and writer for both books
+    private void initializeWriterAndReader() {
+        jsonIncomeWriter = new JsonIncomeBookWriter(JSON_STORE1);
+        jsonIncomeReader = new JsonIncomeBookReader(JSON_STORE1);
+        jsonExpenseWriter = new JsonExpenseBookWriter(JSON_STORE2);
+        jsonExpenseReader = new JsonExpenseBookReader(JSON_STORE2);
+    }
+
     // EFFECTS: returns sidebar of this UI
     public JTabbedPane getTabbedPane() {
         return sidebar;
+    }
+
+    private void handleWindowClose() {
+        printLog(EventLog.getInstance());
+    }
+
+    private void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.toString() + "\n\n");
+        }
     }
 
     // MODIFIES: this

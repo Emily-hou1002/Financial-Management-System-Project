@@ -547,26 +547,16 @@ public class ExpenseBookTab extends Tab {
     // EFFECTS: filters the expensebook based on user's instrution of start date,
     // end date, and usage for display purpose
     private List<Expense> filterExpenses(LocalDate start, LocalDate end, String usage) {
-        List<Expense> originaList = epbk.getExpenseRecord();
+        ArrayList<Expense> originaList = epbk.getExpenseRecord();
         List<Expense> filteredExpenses = new ArrayList<>();
-
-        for (Expense e : originaList) {
-            LocalDate entryDate = e.getExpenseDate();
-            if (Integer.valueOf(usage) == 0) {
-                if ((entryDate.isEqual(start) || entryDate.isAfter((start)))
-                        && (entryDate.isEqual(end) || entryDate.isBefore(end))) {
-                    filteredExpenses.add(e);
-                }
-            } else {
-                ExpenseUsage eu = FinancialManagementApp.selectExpenseusage(Integer.valueOf(usage));
-                if (e.getExpenseUse() == eu) {
-                    if ((entryDate.isEqual(start) || entryDate.isAfter((start)))
-                            && (entryDate.isEqual(end) || entryDate.isBefore(end))) {
-                        filteredExpenses.add(e);
-                    }
-                }
-            }
+        if (Integer.valueOf(usage) == 0) {
+            filteredExpenses = epbk.filterExpenseRecordByTime(originaList, start, end);
+        } else {
+            ExpenseUsage eu = FinancialManagementApp.selectExpenseusage(Integer.valueOf(usage));
+            ArrayList<Expense> filteredUsage = epbk.filterExpenseRecordByUsage(originaList, eu);
+            filteredExpenses = epbk.filterExpenseRecordByTime(filteredUsage, start, end);
         }
+
         return filteredExpenses;
     }
 

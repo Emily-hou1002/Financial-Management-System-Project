@@ -51,6 +51,13 @@ When I first received my living wage from my parents, I had no idea how to manag
 - You can save the state of my application by clicking the "save incomebook/expensebook" button on the corresponding tab. Once it is finished, a pop-up dialogue box will occur as a notification.
 - You can reload the state of my application by clicking the "load incomebook/expensebook" button on the corresponding tab. Once it is finished, a pop-up dialogue will occur as a notification. 
 
+# Phase 4: Task 2
+- New Income Added!
+- IncomeBook Filtered and Displayed from 2024-01-01 to 2024-12-31
+- Expense Removed!
+- IncomeBook Filtered and Displayed with Source REVENUE
+- Total Income Calculated from 2024-01-01 to 2024-12-31
+- Total Expense Calculated from 2024-01-01 to 2024-12-31
 
 
 

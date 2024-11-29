@@ -59,6 +59,11 @@ When I first received my living wage from my parents, I had no idea how to manag
 - Total Income Calculated from 2024-01-01 to 2024-12-31
 - Total Expense Calculated from 2024-01-01 to 2024-12-31
 
+# Phase 4: Task 3
+I will try refactoring the Income and Expense classes in my model package, as well as their corresponding IncomeBook and ExpenseBook classes. I will create a new abstract class named Entry, that includes all the shared fields(amount, date, note) and methods(setter, getters, etc). The Income and Expense classes would then extend this abstract Entry class, specializing only the enum-specific fields(source, usage) and methods. 
+
+In addition, I will also create a concrete class called EntryBook, which could thus manage a list of entries, using a common type (Entry). For logic in method specific related to Income or Expense, I can do filtering entries based on their type using "instanceof". By introducing classes that centralize the common functionality for both income and expense entries, the redundancy and duplication of my code in my previous classes can be effectively reduced with a ensured consistency across classes. Also, it makes extending or modifying functionality a lot easier. 
+
 
 
 
